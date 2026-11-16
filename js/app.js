@@ -9,7 +9,6 @@
 
   var DATA = root.ISLAMIA_COLLEGE || {};
   var INSTITUTION = DATA.institution || {};
-  var SUBJECTS = DATA.subjects || [];
   var COURSES = DATA.courses || [];
   var TEACHERS = DATA.teachers || [];
 
@@ -102,12 +101,6 @@
   function buildSelects() {
     var i;
 
-    if (els.subject) {
-      for (i = 0; i < SUBJECTS.length; i++) {
-        addOption(els.subject, SUBJECTS[i].id, SUBJECTS[i].name);
-      }
-      if (SUBJECTS.length) els.subject.value = SUBJECTS[0].id;
-    }
 
     if (els.courseName) {
       for (i = 0; i < COURSES.length; i++) {
@@ -149,9 +142,7 @@
   /* ---------------- লাইভ প্রিভিউ ---------------- */
 
   function render() {
-    var subject = SUBJECTS.filter(function (item) {
-      return item.id === els.subject.value;
-    })[0];
+    var subject = trim(els.subject.value);
     var course = findCourseById(els.courseName.value) || findCourseByCode(els.courseCode.value);
     var teacher = findTeacher(els.teacher.value);
     var studentName = trim(els.studentName.value);
@@ -164,11 +155,11 @@
     setText(els.outYear, INSTITUTION.year, '');
     setText(els.outSession, INSTITUTION.session, '');
 
-    setText(els.outSubject, subject ? subject.name : '', DOTS_SHORT);
+    setText(els.outSubject, subject, DOTS_LONG);
     setText(els.outCourse, course ? course.name : '', DOTS_LONG);
     setText(els.outCode, course ? toBengaliDigits(course.code) : '', DOTS_SHORT);
 
-    /* নির্দেশনায় — শুধু শিক্ষকের নাম (পদবি নয়)। */
+    /* নির্দেশনায় — শিক্ষকের নাম তালিকায় যা আছে সেটিই বসে। */
     setText(els.outTeacher, teacher ? teacher.name : '', DOTS_MID);
 
     /* সম্পাদনায় — শিক্ষার্থীর তথ্য। */
@@ -190,7 +181,16 @@
     var opts = options || {};
     var nameValue = trim(els.studentName.value);
     var rollValue = trim(els.studentRoll.value);
+    var subjectValue = trim(els.subject.value);
     var problems = [];
+
+    /* বিষয়ের নাম বাধ্যতামূলক — না লিখলে প্রিন্ট/পিডিএফ হবে না। */
+    if (!subjectValue) {
+      setHint(els.subjectHint, 'অনুগ্রহ করে অ্যাসাইনমেন্টের বিষয় লিখুন।', true);
+      problems.push('subject');
+    } else {
+      setHint(els.subjectHint, 'বিষয়ের নাম লিখুন — এটি কভার পেজে বসবে।', false);
+    }
 
     if (!nameValue) {
       setHint(els.nameHint, 'শিক্ষার্থীর পূর্ণ নাম লিখুন — এটি কভার পেজে বসবে।', !opts.quiet);
@@ -330,6 +330,7 @@
     els.studentRoll = $('student-roll');
     els.submitDate = $('submit-date');
 
+    els.subjectHint = $('subject-hint');
     els.nameHint = $('name-hint');
     els.rollHint = $('roll-hint');
     els.dateHint = $('date-hint');
@@ -379,6 +380,18 @@
       event.preventDefault();
       state.touched = true;
       var problems = validate({ quiet: false });
+
+      /* বিষয় লেখা না থাকলে প্রিন্ট ডায়ালগ খুলবে না — ঘরে ফোকাস হবে। */
+      if (problems.indexOf('subject') !== -1) {
+        if (els.subject) {
+          if (els.subject.scrollIntoView) {
+            els.subject.scrollIntoView({ block: 'center', behavior: 'smooth' });
+          }
+          els.subject.focus();
+        }
+        return;
+      }
+
       if (problems.length && document.activeElement) document.activeElement.blur();
       openPrintDialog();
     });

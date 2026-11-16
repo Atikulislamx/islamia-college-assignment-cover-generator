@@ -41,7 +41,9 @@
 
         <div class="field">
           <label for="subject">বিষয়ের নাম</label>
-          <select id="subject" name="subject"></select>
+          <input type="text" id="subject" name="subject" lang="bn" maxlength="140" spellcheck="false"
+                 placeholder="যেমন: রবীন্দ্রনাথ ঠাকুরের উপন্যাসে সমাজচিত্র">
+          <p class="hint" id="subject-hint">বিষয়ের নাম লিখুন — এটি কভার পেজে বসবে।</p>
         </div>
 
         <div class="field">
@@ -135,7 +137,7 @@
 
               <div class="cover-title">
                 <h3 class="cover-title-text">অ্যাসাইনমেন্ট</h3>
-                <p class="cover-title-sub">বিষয়: <span id="out-subject">বাংলা</span></p>
+                <p class="cover-title-sub">বিষয়ের নাম: <span id="out-subject"><span class="placeholder">………………………………</span></span></p>
               </div>
 
               <div class="cover-course">
