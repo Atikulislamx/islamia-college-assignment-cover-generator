@@ -1,0 +1,461 @@
+/* =========================================================
+   islamia-college-assignment-cover-generator
+   css/style.css — স্ক্রিনের জন্য মূল স্টাইল (সম্পূর্ণ বাংলা ইন্টারফেস)
+   ========================================================= */
+
+:root {
+  --font-bangla: 'Noto Sans Bengali', 'Noto Sans Bengali UI', 'Kalpurush',
+    'SolaimanLipi', 'Vrinda', 'Nirmala UI', 'Lohit Bengali', 'Shonar Bangla',
+    sans-serif;
+
+  --bg: #f4f6f8;
+  --bg-soft: #eceff3;
+  --surface: #ffffff;
+  --line: #dfe3e8;
+  --line-soft: #eef1f4;
+
+  --text: #1c2128;
+  --text-soft: #5b6472;
+  --text-faint: #7c8593;
+
+  --maroon: #7d1f2f;
+  --maroon-dark: #5e1523;
+  --gold: #b58a2b;
+  --ring: rgba(125, 31, 47, 0.16);
+
+  --radius: 14px;
+  --radius-sm: 10px;
+  --shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 12px 28px rgba(16, 24, 40, 0.07);
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-bangla);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---------------- হেডার ---------------- */
+
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-header-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 16px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.site-logo {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.site-heading h1 {
+  margin: 0;
+  font-size: 1.28rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  line-height: 1.4;
+}
+
+.site-heading p {
+  margin: 2px 0 0;
+  font-size: 0.86rem;
+  color: var(--text-soft);
+}
+
+/* ---------------- লেআউট ---------------- */
+
+.layout {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 24px 22px 40px;
+  display: grid;
+  grid-template-columns: minmax(340px, 460px) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.form-panel,
+.preview-panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.form-panel { padding: 22px 22px 26px; }
+.preview-panel { padding: 18px 18px 20px; }
+
+.panel-head { margin-bottom: 14px; }
+
+.panel-head h2 {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--maroon);
+}
+
+.panel-note {
+  margin: 6px 0 0;
+  font-size: 0.83rem;
+  color: var(--text-soft);
+  line-height: 1.6;
+}
+
+/* ---------------- ফর্ম ---------------- */
+
+.field-group {
+  padding: 16px 0 6px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.field-group:first-of-type { border-top: 0; padding-top: 6px; }
+
+.group-title {
+  margin: 0 0 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-faint);
+  letter-spacing: 0.6px;
+}
+
+.field { margin-bottom: 16px; }
+
+.field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.field select,
+.field input {
+  width: 100%;
+  padding: 11px 13px;
+  font-family: inherit;
+  font-size: 0.98rem;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  line-height: 1.5;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.field select { appearance: none; -webkit-appearance: none; padding-right: 38px; cursor: pointer; }
+
+.field select:focus,
+.field input:focus {
+  outline: none;
+  border-color: var(--maroon);
+  box-shadow: 0 0 0 4px var(--ring);
+}
+
+.field select:invalid { color: var(--text-faint); }
+
+.field select option { color: var(--text); }
+
+.select-wrap { position: relative; }
+
+.select-wrap::after {
+  content: '';
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin-top: -6px;
+  border-right: 2px solid var(--text-soft);
+  border-bottom: 2px solid var(--text-soft);
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.hint {
+  margin: 6px 0 0;
+  font-size: 0.78rem;
+  color: var(--text-faint);
+  line-height: 1.55;
+}
+
+.hint.is-warn { color: #a3402c; }
+
+.field input.invalid,
+.field select.invalid { border-color: #c0563f; }
+
+/* ---------------- বাটন ---------------- */
+
+.action-bar { margin-top: 20px; }
+
+.btn-primary {
+  display: block;
+  width: 100%;
+  padding: 14px 18px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(180deg, var(--maroon) 0%, var(--maroon-dark) 100%);
+  color: #fff;
+  font-family: inherit;
+  font-size: 1.04rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(125, 31, 47, 0.26);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+
+.btn-primary:hover { filter: brightness(1.06); box-shadow: 0 8px 22px rgba(125, 31, 47, 0.32); }
+.btn-primary:active { transform: translateY(1px) scale(0.995); }
+.btn-primary:focus-visible { outline: 3px solid var(--ring); outline-offset: 2px; }
+
+/* নাম/রোল/তারিখ খালি থাকলে বাটনে সূক্ষ্ম ইঙ্গিত (ছাপা আটকায় না) */
+.btn-primary.is-incomplete {
+  background: linear-gradient(180deg, #94394a 0%, var(--maroon) 100%);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.45), 0 6px 16px rgba(125, 31, 47, 0.24);
+}
+
+.privacy-note {
+  margin: 18px 0 0;
+  padding: 10px 12px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg-soft);
+  font-size: 0.78rem;
+  color: var(--text-soft);
+}
+
+.noscript-note {
+  margin: 14px 0 0;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: #fdeeec;
+  color: #8a2f1f;
+  font-size: 0.85rem;
+}
+
+/* ---------------- প্রিভিউ ---------------- */
+
+.preview-stage {
+  background:
+    linear-gradient(180deg, #e7ebf0 0%, #eef1f5 100%);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px;
+  overflow: hidden;
+}
+
+/* স্ক্রিনে পাতাটি দেখার উপযুক্ত আকারে ছোট করা হয় (print.css এ স্কেল বাতিল) */
+.preview-scaler {
+  position: relative;
+  transform-origin: top left;
+  will-change: transform;
+}
+
+/* ---------------- কভার পেজ (A4) ---------------- */
+
+.cover {
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  background: #fff;
+  color: #10141a;
+  font-family: var(--font-bangla);
+  box-shadow: 0 10px 34px rgba(16, 24, 40, 0.16);
+}
+
+.cover-border-outer {
+  position: absolute;
+  inset: 8mm;
+  border: 2.2pt solid var(--maroon);
+  padding: 1.6mm;
+}
+
+.cover-border-inner {
+  height: 100%;
+  border: 0.8pt solid var(--gold);
+}
+
+.cover-content {
+  height: 100%;
+  padding: 10mm 9mm 9mm;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.cover-head { margin: 0 0 2mm; }
+
+.cover-logo {
+  display: block;
+  width: 26mm;
+  height: 26mm;
+  object-fit: contain;
+  margin: 0 auto 3mm;
+}
+
+.cover-college {
+  margin: 0;
+  font-size: 25pt;
+  font-weight: 700;
+  line-height: 1.28;
+  color: var(--maroon);
+}
+
+.cover-location {
+  margin: 1mm 0 0;
+  font-size: 15pt;
+  font-weight: 600;
+  color: #23272f;
+}
+
+.cover-meta {
+  margin: 3.5mm 0 0;
+  font-size: 11.5pt;
+  font-weight: 600;
+  color: #3b424c;
+}
+
+.meta-sep { margin: 0 2mm; color: var(--gold); }
+
+.cover-rule {
+  margin: 5mm auto 0;
+  width: 58mm;
+  border-top: 0.9pt solid var(--gold);
+  position: relative;
+}
+
+.cover-rule::after {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  margin: -4px auto 0;
+  background: var(--gold);
+  transform: rotate(45deg);
+}
+
+.cover-title { margin-top: 8mm; }
+
+.cover-title-text {
+  margin: 0;
+  font-size: 27pt;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #10141a;
+}
+
+.cover-title-sub {
+  margin: 3mm 0 0;
+  font-size: 14.5pt;
+  font-weight: 600;
+}
+
+.cover-course {
+  margin-top: 7mm;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6mm;
+}
+
+.course-line {
+  margin: 0;
+  font-size: 13.5pt;
+  line-height: 1.6;
+}
+
+.course-label {
+  font-weight: 600;
+  color: #4a5160;
+}
+
+.course-value { font-weight: 700; }
+
+.cover-footer {
+  margin-top: auto;
+  padding-top: 10mm;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8mm;
+  align-items: end;
+  text-align: center;
+}
+
+.block-title {
+  margin: 0 0 2mm;
+  font-size: 14.5pt;
+  font-weight: 700;
+  color: var(--maroon);
+}
+
+.block-name {
+  margin: 0;
+  font-size: 15pt;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.cover-block-guide { border-right: 0.7pt solid var(--line); }
+
+.student-lines {
+  list-style: none;
+  margin: 2.5mm 0 0;
+  padding: 0;
+  font-size: 12pt;
+  line-height: 1.85;
+}
+
+.student-lines li { margin: 0; }
+
+.line-label { color: #4a5160; font-weight: 600; }
+
+.placeholder { color: #9aa3b0; letter-spacing: 1px; }
+
+/* ---------------- ফুটার ---------------- */
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  padding: 16px 22px 26px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-faint);
+}
+
+.site-footer p { margin: 0; }
+
+/* ---------------- মোবাইল ---------------- */
+
+@media (max-width: 1080px) {
+  .layout { grid-template-columns: 1fr; }
+  .preview-panel { order: 2; }
+  .form-panel { order: 1; }
+}
+
+@media (max-width: 640px) {
+  body { font-size: 15px; }
+  .site-header-inner { padding: 14px 16px; gap: 12px; }
+  .site-logo { width: 44px; height: 44px; }
+  .site-heading h1 { font-size: 1.06rem; }
+  .site-heading p { font-size: 0.78rem; }
+  .layout { padding: 16px 14px 28px; gap: 16px; }
+  .form-panel, .preview-panel { padding: 16px 14px 18px; border-radius: 12px; }
+  .preview-stage { padding: 10px; }
+  .field select, .field input { font-size: 1rem; padding: 12px 12px; }
+}
