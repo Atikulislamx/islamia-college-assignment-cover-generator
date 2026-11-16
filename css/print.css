@@ -1,0 +1,93 @@
+/* =========================================================
+   islamia-college-assignment-cover-generator
+   css/print.css — প্রিন্ট / পিডিএফ আউটপুট (এক পৃষ্ঠা, A4 পোর্ট্রেট)
+   প্রিন্টের সময় শুধু কভার পেজ থাকে; ফর্ম, হেডার ও অন্যান্য ইন্টারফেস লুকানো থাকে।
+   ========================================================= */
+
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+@media print {
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 210mm;
+    height: auto;
+    background: #fff !important;
+    overflow: visible;
+  }
+
+  /* কভার পেজ বাদে বাকি সব ইন্টারফেস লুকানো */
+  .site-header,
+  .site-footer,
+  .form-panel,
+  .preview-panel > .panel-head {
+    display: none !important;
+  }
+
+  .layout {
+    display: block !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .preview-panel {
+    display: block !important;
+    background: none !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .preview-stage {
+    display: block !important;
+    background: none !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  /* স্ক্রিনের ফিট-স্কেল বাতিল — প্রকৃত মাপে ছাপা হবে */
+  .preview-scaler,
+  .cover {
+    transform: none !important;
+    margin: 0 !important;
+    width: auto;
+  }
+
+  .cover {
+    position: relative;
+    display: block;
+    width: 209.8mm;
+    height: 296.8mm;
+    margin: 0 !important;
+    box-shadow: none !important;
+    background: #fff !important;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+    break-after: avoid;
+    break-inside: avoid;
+    overflow: hidden;
+  }
+
+  /* রঙিন বর্ডার ও লোগো যেন বাদ না পড়ে */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .cover-border-outer { inset: 7mm; }
+  .cover-content { padding: 9mm 8mm 8mm; }
+
+  /* প্রিভিউর দাগ-চিহ্ন ও সতর্কবার্তা ছাপা হবে না */
+  .placeholder { color: #6b7280; }
+}

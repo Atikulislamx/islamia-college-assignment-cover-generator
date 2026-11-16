@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0f766e">
+<meta name="description" content="ইসলামিয়া সরকারি কলেজ, সিরাজগঞ্জ — বাংলা বিভাগের শিক্ষার্থীদের জন্য অ্যাসাইনমেন্টের কভার পেজ তৈরি ও প্রিন্ট করার ওয়েব অ্যাপ।">
+<title>অ্যাসাইনমেন্ট কভার জেনারেটর — ইসলামিয়া সরকারি কলেজ, সিরাজগঞ্জ</title>
+<link rel="icon" href="assets/college-logo.jpg" type="image/jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/print.css" media="print">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <img class="site-logo" src="assets/college-logo.jpg" alt="ইসলামিয়া সরকারি কলেজ, সিরাজগঞ্জ লোগো" width="150" height="150">
+    <div class="site-heading">
+      <h1>ইসলামিয়া কলেজ অ্যাসাইনমেন্ট কভার জেনারেটর</h1>
+      <p>ইসলামিয়া সরকারি কলেজ, সিরাজগঞ্জ &nbsp;•&nbsp; বাংলা বিভাগ</p>
+    </div>
+  </div>
+</header>
+
+<main class="layout">
+
+  <!-- ===================== তথ্য নির্বাচনের ফর্ম ===================== -->
+  <section class="form-panel" aria-labelledby="form-title">
+    <div class="panel-head">
+      <h2 id="form-title">তথ্য পূরণ করুন</h2>
+      <p class="panel-note">নিচের ঘরগুলো পূরণ করলেই কভার পেজ সঙ্গে সঙ্গে তৈরি হয়ে যাবে। কলেজের নাম, বিভাগ, বর্ষ ও শিক্ষাবর্ষ স্বয়ংক্রিয়ভাবে বসে।</p>
+    </div>
+
+    <form id="assignment-form" autocomplete="off" novalidate>
+
+      <div class="field-group">
+        <h3 class="group-title">কোর্সের তথ্য</h3>
+
+        <div class="field">
+          <label for="subject">বিষয়ের নাম</label>
+          <select id="subject" name="subject"></select>
+        </div>
+
+        <div class="field">
+          <label for="course-name">কোর্সের নাম</label>
+          <select id="course-name" name="course-name"></select>
+          <p class="hint">কোর্সের নাম বেছে নিলে কোর্স কোড নিজে থেকেই বসে যাবে।</p>
+        </div>
+
+        <div class="field">
+          <label for="course-code">কোর্স কোড</label>
+          <select id="course-code" name="course-code"></select>
+          <p class="hint">কোর্স কোড বেছে নিলে কোর্সের নামও নিজে থেকেই বসে যাবে।</p>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <h3 class="group-title">নির্দেশনায়</h3>
+
+        <div class="field">
+          <label for="teacher">শিক্ষকের নাম</label>
+          <select id="teacher" name="teacher"></select>
+          <p class="hint">নামের পাশে পদবি শুধু চেনার জন্য; কভার পেজে কেবল শিক্ষকের নাম বসবে।</p>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <h3 class="group-title">শিক্ষার্থীর তথ্য</h3>
+
+        <div class="field">
+          <label for="student-name">শিক্ষার্থীর পূর্ণ নাম</label>
+          <input type="text" id="student-name" name="student-name" lang="bn"
+                 maxlength="70" placeholder="যেমন: মোঃ আব্দুল করিম" spellcheck="false">
+          <p class="hint" id="name-hint">বাংলা অক্ষর, যুক্তাক্ষর ও কার-ফলা সহজে লেখা যায়।</p>
+        </div>
+
+        <div class="field">
+          <label for="student-roll">রোল নম্বর</label>
+          <input type="text" id="student-roll" name="student-roll" lang="bn" inputmode="numeric"
+                 maxlength="24" placeholder="যেমন: ২৩২৪০১০২০৫" spellcheck="false">
+          <p class="hint" id="roll-hint">বাংলা বা ইংরেজি সংখ্যা — দুটোই দিন; কভার পেজে বাংলা সংখ্যায় দেখানো হবে।</p>
+        </div>
+
+        <div class="field">
+          <label for="submit-date">জমা দেওয়ার তারিখ</label>
+          <input type="date" id="submit-date" name="submit-date" lang="bn">
+          <p class="hint" id="date-hint">ক্যালেন্ডার থেকে তারিখ বেছে নিন; কভার পেজে বাংলা সংখ্যায় লেখা হবে।</p>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <button type="submit" class="btn-primary" id="print-btn">পিডিএফ তৈরি ও প্রিন্ট</button>
+        <p class="hint">প্রিন্ট ডায়ালগে কাগজের মাপ <strong>A4 (২১০ × ২৯৭ মিলিমিটার)</strong> এবং মার্জিন <strong>কোনোটিই নয়</strong> রাখুন, তারপর “সংরক্ষণ” বা “প্রিন্ট” চাপুন।</p>
+      </div>
+    </form>
+
+    <p class="privacy-note">এই পেজে লেখা কোনো তথ্য কোনো সার্ভারে পাঠানো হয় না — সবকিছু আপনার ব্রাউজারেই তৈরি হয়।</p>
+
+    <noscript>
+      <p class="noscript-note">কভার পেজ তৈরি ও প্রিভিউ দেখার জন্য ব্রাউজারে স্ক্রিপ্ট চালু করে পাতাটি আবার খুলুন।</p>
+    </noscript>
+  </section>
+
+  <!-- ===================== লাইভ প্রিভিউ ===================== -->
+  <section class="preview-panel" aria-labelledby="preview-title">
+    <div class="panel-head">
+      <h2 id="preview-title">কভার পেজের লাইভ প্রিভিউ</h2>
+      <p class="panel-note">নিচের পাতাই ঠিক এইভাবে প্রিন্ট বা পিডিএফ হবে।</p>
+    </div>
+
+    <div class="preview-stage" id="preview-stage">
+      <div class="preview-scaler" id="preview-scaler">
+      <div class="cover" id="cover" aria-live="polite">
+        <div class="cover-border-outer">
+          <div class="cover-border-inner">
+            <div class="cover-content">
+
+              <header class="cover-head">
+                <img class="cover-logo" src="assets/college-logo.jpg" alt="ইসলামিয়া সরকারি কলেজ, সিরাজগঞ্জ লোগো" width="150" height="150">
+                <h2 class="cover-college" id="out-college">ইসলামিয়া সরকারি কলেজ</h2>
+                <p class="cover-location" id="out-location">সিরাজগঞ্জ</p>
+                <p class="cover-meta">
+                  <span id="out-department">বাংলা বিভাগ</span>
+                  <span class="meta-sep" aria-hidden="true">•</span>
+                  <span id="out-year">প্রথম বর্ষ</span>
+                  <span class="meta-sep" aria-hidden="true">•</span>
+                  <span>শিক্ষাবর্ষ: <span id="out-session">২০২৫–২৬</span></span>
+                </p>
+              </header>
+
+              <div class="cover-rule" aria-hidden="true"></div>
+
+              <div class="cover-title">
+                <h3 class="cover-title-text">অ্যাসাইনমেন্ট</h3>
+                <p class="cover-title-sub">বিষয়: <span id="out-subject">বাংলা</span></p>
+              </div>
+
+              <div class="cover-course">
+                <p class="course-line">
+                  <span class="course-label">কোর্সের নাম:</span>
+                  <span class="course-value" id="out-course">বাংলাদেশ এবং বাঙালির ইতিহাস ও সংস্কৃতি</span>
+                </p>
+                <p class="course-line">
+                  <span class="course-label">কোর্স কোড:</span>
+                  <span class="course-value" id="out-code">২১১০০১</span>
+                </p>
+              </div>
+
+              <div class="cover-footer">
+                <section class="cover-block cover-block-guide">
+                  <h4 class="block-title">নির্দেশনায়</h4>
+                  <p class="block-name" id="out-teacher">তানজুম আরা ম্যাডাম</p>
+                </section>
+
+                <section class="cover-block cover-block-student">
+                  <h4 class="block-title">সম্পাদনায়</h4>
+                  <p class="block-name" id="out-student"><span class="placeholder">………………………………</span></p>
+                  <ul class="student-lines">
+                    <li><span class="line-label">রোল:</span> <span id="out-roll"><span class="placeholder">……………</span></span></li>
+                    <li><span class="line-label">বিভাগ:</span> <span id="out-student-department">বাংলা বিভাগ</span></li>
+                    <li><span class="line-label">বর্ষ:</span> <span id="out-student-year">প্রথম বর্ষ</span></li>
+                    <li><span class="line-label">জমা দেওয়ার তারিখ:</span> <span id="out-date"><span class="placeholder">……………</span></span></li>
+                  </ul>
+                </section>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>শিক্ষার্থীদের সুবিধার জন্য তৈরি &nbsp;•&nbsp; ইসলামিয়া সরকারি কলেজ, সিরাজগঞ্জ &nbsp;•&nbsp; বাংলা বিভাগ</p>
+</footer>
+
+<script src="js/courses.js"></script>
+<script src="js/teachers.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

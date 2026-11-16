@@ -1,0 +1,14 @@
+# লোকাল টুল ও পরীক্ষার ফাইল
+node_modules/
+package.json
+package-lock.json
+
+# অস্থায়ী/ডাউনলোড করা ফাইল
+image-search/
+*.log
+.DS_Store
+Thumbs.db
+
+# এডিটর
+.vscode/
+.idea/
