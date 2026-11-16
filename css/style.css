@@ -159,7 +159,17 @@ body {
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.field select { appearance: none; -webkit-appearance: none; padding-right: 38px; cursor: pointer; }
+.field select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 40px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1.5l5 5 5-5' fill='none' stroke='%235b6472' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px 8px;
+}
 
 .field select:focus,
 .field input:focus {
@@ -172,21 +182,7 @@ body {
 
 .field select option { color: var(--text); }
 
-.select-wrap { position: relative; }
-
-.select-wrap::after {
-  content: '';
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  width: 8px;
-  height: 8px;
-  margin-top: -6px;
-  border-right: 2px solid var(--text-soft);
-  border-bottom: 2px solid var(--text-soft);
-  transform: rotate(45deg);
-  pointer-events: none;
-}
+.field select:hover { border-color: #c6ccd4; }
 
 .hint {
   margin: 6px 0 0;
