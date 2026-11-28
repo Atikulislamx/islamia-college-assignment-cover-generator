@@ -407,6 +407,14 @@ body {
   line-height: 1.45;
 }
 
+.block-sub {
+  margin: 1.5mm 0 0;
+  font-size: 12pt;
+  font-weight: 600;
+  color: #3b424c;
+  line-height: 1.5;
+}
+
 .cover-block-guide { border-right: 0.7pt solid var(--line); }
 
 .student-lines {
