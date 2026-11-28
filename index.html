@@ -48,8 +48,8 @@
 
         <div class="field">
           <label for="year">বর্ষ</label>
-          <input type="text" id="year" name="year" lang="bn" maxlength="40"
-                 placeholder="যেমন: প্রথম বর্ষ, দ্বিতীয় বর্ষ, স্নাতক প্রথম বর্ষ" spellcheck="false">
+          <input type="text" id="year" name="year" lang="bn" maxlength="60"
+                 placeholder="যেমন: অনার্স ১ম বর্ষ, ডিগ্রি ২য় বর্ষ" spellcheck="false">
           <p class="hint" id="year-hint">বর্ষের নাম লিখুন।</p>
         </div>
 
@@ -102,10 +102,17 @@
                  placeholder="যেমন: বিভাগীয় প্রধান, প্রভাষক, আহ্বায়ক, সহকারী অধ্যাপক">
           <p class="hint" id="teacher-designation-hint">শিক্ষকের পদবী লিখুন।</p>
         </div>
+
+        <div class="field">
+          <label for="teacher-department">শিক্ষকের বিভাগ</label>
+          <input type="text" id="teacher-department" name="teacher-department" lang="bn" maxlength="80" spellcheck="false"
+                 placeholder="যেমন: বাংলা বিভাগ, আইসিটি বিভাগ">
+          <p class="hint" id="teacher-department-hint">শিক্ষক কোন বিভাগের তা লিখুন।</p>
+        </div>
       </div>
 
       <div class="field-group">
-        <h3 class="group-title">সম্পাদনায় (শিক্ষার্থীর তথ্য)</h3>
+        <h3 class="group-title">প্রস্তুতকারী (শিক্ষার্থীর তথ্য)</h3>
 
         <div class="field">
           <label for="student-name">শিক্ষার্থীর পূর্ণ নাম</label>
@@ -115,7 +122,7 @@
         </div>
 
         <div class="field">
-          <label for="student-roll">রোল নম্বর</label>
+          <label for="student-roll">ক্লাস রোল / রোল নম্বর</label>
           <input type="text" id="student-roll" name="student-roll" lang="bn" inputmode="numeric"
                  maxlength="24" placeholder="যেমন: ২৩২৪০১০২০৫" spellcheck="false">
           <p class="hint" id="roll-hint">বাংলা বা ইংরেজি সংখ্যা — দুটোই দিন; কভার পেজে বাংলা সংখ্যায় দেখানো হবে।</p>
@@ -198,16 +205,19 @@
                   <h4 class="block-title">নির্দেশনায়</h4>
                   <p class="block-name" id="out-teacher"><span class="placeholder">………………………………</span></p>
                   <p class="block-sub" id="out-teacher-designation"><span class="placeholder">…………………………</span></p>
+                  <p class="block-sub" id="out-teacher-department"><span class="placeholder">…………………………</span></p>
+                  <p class="block-sub block-institution" id="out-guide-college">ইসলামিয়া সরকারি কলেজ, সিরাজগঞ্জ</p>
                 </section>
 
                 <section class="cover-block cover-block-student">
-                  <h4 class="block-title">সম্পাদনায়</h4>
+                  <h4 class="block-title">প্রস্তুতকারী</h4>
                   <p class="block-name" id="out-student"><span class="placeholder">………………………………</span></p>
                   <ul class="student-lines">
-                    <li><span class="line-label">রোল:</span> <span id="out-roll"><span class="placeholder">……………</span></span></li>
-                    <li><span class="line-label">রেজিস্ট্রেশন:</span> <span id="out-reg"><span class="placeholder">……………</span></span></li>
+                    <li><span class="line-label">বর্ষ/শিক্ষাবর্ষ:</span> <span id="out-student-year-session"><span class="placeholder">…………………………</span></span></li>
                     <li><span class="line-label">বিভাগ:</span> <span id="out-student-department"><span class="placeholder">……………………</span></span></li>
-                    <li><span class="line-label">বর্ষ:</span> <span id="out-student-year"><span class="placeholder">………………</span></span></li>
+                    <li><span class="line-label">ক্লাস রোল:</span> <span id="out-roll"><span class="placeholder">……………</span></span></li>
+                    <li><span class="line-label">রেজিস্ট্রেশন:</span> <span id="out-reg"><span class="placeholder">……………</span></span></li>
+                    <li class="line-institution"><span id="out-student-college">ইসলামিয়া সরকারি কলেজ, সিরাজগঞ্জ</span></li>
                     <li><span class="line-label">জমা দেওয়ার তারিখ:</span> <span id="out-date"><span class="placeholder">……………</span></span></li>
                   </ul>
                 </section>
