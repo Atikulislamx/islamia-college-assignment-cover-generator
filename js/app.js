@@ -49,11 +49,17 @@
     return toBengaliDigits(day) + ' ' + BN_MONTHS[month - 1] + ', ' + toBengaliDigits(year);
   }
 
+  /**
+   * একটি আউটপুট এলিমেন্টে টেক্সট বসায়।
+   * - value থাকলে সরাসরি বসায়।
+   * - value না থাকলে fallbackDots দিয়ে প্লেসহোল্ডার দেখায়।
+   * - fallbackDots না দিলে (empty string '') এলিমেন্টটি ফাঁকা রাখা হয় (লাইন দেখা যাবে না)।
+   */
   function setText(el, text, fallbackDots) {
     if (!el) return;
     var value = trim(text);
-    // Clear existing content
     el.textContent = '';
+    el.classList.remove('is-empty');
     if (value) {
       el.appendChild(document.createTextNode(value));
     } else if (fallbackDots) {
@@ -61,6 +67,8 @@
       span.className = 'placeholder';
       span.textContent = fallbackDots;
       el.appendChild(span);
+    } else {
+      el.classList.add('is-empty');
     }
   }
 
@@ -68,6 +76,24 @@
     if (!el) return;
     el.textContent = message;
     el.classList.toggle('is-warn', Boolean(isWarning));
+  }
+
+  /** বর্ষ ও শিক্ষাবর্ষ একসাথে যুক্ত করে একটি লাইন তৈরি করে। */
+  function formatYearSession(year, session) {
+    var y = trim(year);
+    var s = toBengaliDigits(trim(session));
+    if (y && s) return y + ', শিক্ষাবর্ষ: ' + s;
+    if (y) return y;
+    if (s) return 'শিক্ষাবর্ষ: ' + s;
+    return '';
+  }
+
+  /** কলেজের পূর্ণ নাম (ব্র্যান্ডিং) — নাম ও লোকেশন একসাথে। */
+  function institutionFullName() {
+    var name = trim(INSTITUTION.name);
+    var loc = trim(INSTITUTION.location);
+    if (name && loc) return name + ', ' + loc;
+    return name || loc;
   }
 
   /* ---------------- লাইভ প্রিভিউ ---------------- */
@@ -81,16 +107,20 @@
     var courseCode = toBengaliDigits(trim(els.courseCode.value));
     var teacherName = trim(els.teacherName.value);
     var teacherDesignation = trim(els.teacherDesignation.value);
+    var teacherDepartment = trim(els.teacherDepartment.value);
     var studentName = trim(els.studentName.value);
     var roll = toBengaliDigits(trim(els.studentRoll.value));
     var reg = toBengaliDigits(trim(els.studentReg.value));
     var date = bengaliDate(els.submitDate.value);
 
+    var collegeLine = institutionFullName();
+    var yearSession = formatYearSession(year, session);
+
     /* কলেজ ব্র্যান্ডিং (স্থির) */
     setText(els.outCollege, INSTITUTION.name, '');
     setText(els.outLocation, INSTITUTION.location, '');
 
-    /* হেডার মেটা — বিভাগ, বর্ষ, শিক্ষাবর্ষ (ব্যবহারকারীর ইনপুট) */
+    /* হেডার মেটা — বিভাগ, বর্ষ, শিক্ষাবর্ষ */
     setText(els.outDepartment, department, '……………………');
     setText(els.outYear, year, '………………');
     setText(els.outSession, session, '……………');
@@ -100,16 +130,19 @@
     setText(els.outCourse, courseName, '…………………………………………');
     setText(els.outCode, courseCode, DOTS_SHORT);
 
-    /* নির্দেশনায় — শিক্ষকের নাম ও পদবী */
+    /* নির্দেশনায় — শিক্ষকের তথ্য */
     setText(els.outTeacher, teacherName, DOTS_LONG);
     setText(els.outTeacherDesignation, teacherDesignation, DOTS_MID);
+    setText(els.outTeacherDepartment, teacherDepartment, DOTS_MID);
+    setText(els.outGuideCollege, collegeLine, '');
 
-    /* সম্পাদনায় — শিক্ষার্থীর তথ্য */
+    /* প্রস্তুতকারী — শিক্ষার্থীর তথ্য */
     setText(els.outStudent, studentName, DOTS_LONG);
+    setText(els.outStudentYearSession, yearSession, DOTS_MID);
+    setText(els.outStudentDepartment, department, '……………………');
     setText(els.outRoll, roll, DOTS_SHORT);
     setText(els.outReg, reg, DOTS_SHORT);
-    setText(els.outStudentDepartment, department, '……………………');
-    setText(els.outStudentYear, year, '………………');
+    setText(els.outStudentCollege, collegeLine, '');
     setText(els.outDate, date, DOTS_SHORT);
 
     validate({ quiet: !state.touched });
@@ -280,6 +313,7 @@
     /* শিক্ষক */
     els.teacherName = $('teacher-name');
     els.teacherDesignation = $('teacher-designation');
+    els.teacherDepartment = $('teacher-department');
 
     /* শিক্ষার্থী */
     els.studentName = $('student-name');
@@ -296,6 +330,7 @@
     els.courseCodeHint = $('course-code-hint');
     els.teacherNameHint = $('teacher-name-hint');
     els.teacherDesignationHint = $('teacher-designation-hint');
+    els.teacherDepartmentHint = $('teacher-department-hint');
     els.nameHint = $('name-hint');
     els.rollHint = $('roll-hint');
     els.regHint = $('reg-hint');
@@ -318,11 +353,14 @@
     els.outCode = $('out-code');
     els.outTeacher = $('out-teacher');
     els.outTeacherDesignation = $('out-teacher-designation');
+    els.outTeacherDepartment = $('out-teacher-department');
+    els.outGuideCollege = $('out-guide-college');
     els.outStudent = $('out-student');
+    els.outStudentYearSession = $('out-student-year-session');
     els.outRoll = $('out-roll');
     els.outReg = $('out-reg');
     els.outStudentDepartment = $('out-student-department');
-    els.outStudentYear = $('out-student-year');
+    els.outStudentCollege = $('out-student-college');
     els.outDate = $('out-date');
 
     if (!els.form) return;
@@ -331,7 +369,7 @@
     var inputs = [
       els.department, els.year, els.session,
       els.subject, els.courseName, els.courseCode,
-      els.teacherName, els.teacherDesignation,
+      els.teacherName, els.teacherDesignation, els.teacherDepartment,
       els.studentName, els.studentRoll, els.studentReg, els.submitDate
     ];
 
@@ -352,7 +390,6 @@
       state.touched = true;
       var problems = validate({ quiet: false });
 
-      /* বিষয় লেখা না থাকলে প্রিন্ট ডায়ালগ খুলবে না */
       if (problems.indexOf('subject') !== -1) {
         if (els.subject) {
           if (els.subject.scrollIntoView) {
@@ -378,7 +415,7 @@
     if (window.ResizeObserver && els.stage) {
       try {
         new window.ResizeObserver(fitPreview).observe(els.stage);
-      } catch (error) { /* পুরোনো ব্রাউজার — resize ইভেন্টই যথেষ্ট */ }
+      } catch (error) { /* পুরোনো ব্রাউজার */ }
     }
 
     if (document.fonts && document.fonts.ready) {

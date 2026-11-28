@@ -290,7 +290,7 @@ body {
 
 .cover-content {
   height: 100%;
-  padding: 10mm 9mm 9mm;
+  padding: 8mm 9mm 8mm;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -300,15 +300,15 @@ body {
 
 .cover-logo {
   display: block;
-  width: 26mm;
-  height: 26mm;
+  width: 23mm;
+  height: 23mm;
   object-fit: contain;
-  margin: 0 auto 3mm;
+  margin: 0 auto 2.5mm;
 }
 
 .cover-college {
   margin: 0;
-  font-size: 25pt;
+  font-size: 22pt;
   font-weight: 700;
   line-height: 1.28;
   color: var(--maroon);
@@ -316,14 +316,14 @@ body {
 
 .cover-location {
   margin: 1mm 0 0;
-  font-size: 15pt;
+  font-size: 13pt;
   font-weight: 600;
   color: #23272f;
 }
 
 .cover-meta {
-  margin: 3.5mm 0 0;
-  font-size: 11.5pt;
+  margin: 3mm 0 0;
+  font-size: 11pt;
   font-weight: 600;
   color: #3b424c;
 }
@@ -347,33 +347,33 @@ body {
   transform: rotate(45deg);
 }
 
-.cover-title { margin-top: 8mm; }
+.cover-title { margin-top: 6mm; }
 
 .cover-title-text {
   margin: 0;
-  font-size: 27pt;
+  font-size: 25pt;
   font-weight: 700;
   letter-spacing: 0.5px;
   color: #10141a;
 }
 
 .cover-title-sub {
-  margin: 3mm 0 0;
-  font-size: 14.5pt;
+  margin: 2.5mm 0 0;
+  font-size: 13.5pt;
   font-weight: 600;
 }
 
 .cover-course {
-  margin-top: 7mm;
+  margin-top: 5mm;
   display: flex;
   flex-direction: column;
-  gap: 1.6mm;
+  gap: 1mm;
 }
 
 .course-line {
   margin: 0;
-  font-size: 13.5pt;
-  line-height: 1.6;
+  font-size: 12.5pt;
+  line-height: 1.55;
 }
 
 .course-label {
@@ -385,26 +385,26 @@ body {
 
 .cover-footer {
   margin-top: auto;
-  padding-top: 10mm;
+  padding-top: 8mm;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8mm;
+  gap: 6mm;
   align-items: end;
   text-align: center;
 }
 
 .block-title {
   margin: 0 0 2mm;
-  font-size: 14.5pt;
+  font-size: 13.5pt;
   font-weight: 700;
   color: var(--maroon);
 }
 
 .block-name {
   margin: 0;
-  font-size: 15pt;
+  font-size: 13.5pt;
   font-weight: 700;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 .block-sub {
@@ -412,24 +412,48 @@ body {
   font-size: 12pt;
   font-weight: 600;
   color: #3b424c;
-  line-height: 1.5;
+  line-height: 1.45;
+}
+
+.block-institution {
+  margin: 2mm 0 0;
+  font-size: 11pt;
+  font-weight: 700;
+  color: var(--maroon);
+  line-height: 1.4;
 }
 
 .cover-block-guide { border-right: 0.7pt solid var(--line); }
+
+.cover-block-student .block-name { margin-bottom: 1mm; }
 
 .student-lines {
   list-style: none;
   margin: 2.5mm 0 0;
   padding: 0;
-  font-size: 12pt;
-  line-height: 1.85;
+  font-size: 11.5pt;
+  line-height: 1.8;
+  text-align: left;
 }
 
 .student-lines li { margin: 0; }
 
 .line-label { color: #4a5160; font-weight: 600; }
 
+.line-institution {
+  margin-top: 1.5mm !important;
+  padding-top: 1.5mm;
+  border-top: 0.5pt solid var(--line);
+  font-size: 11pt;
+  font-weight: 700;
+  color: var(--maroon);
+  text-align: center;
+  line-height: 1.4;
+}
+
 .placeholder { color: #9aa3b0; letter-spacing: 1px; }
+
+.is-empty { display: none; }
 
 /* ---------------- ফুটার ---------------- */
 
