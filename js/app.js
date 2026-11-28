@@ -3,14 +3,13 @@
  * js/app.js — ফর্ম, লাইভ প্রিভিউ ও পিডিএফ/প্রিন্ট নিয়ন্ত্রণ।
  *
  * কোনো ব্যাকএন্ড নেই: শিক্ষার্থীর দেওয়া তথ্য ব্রাউজারেই থাকে, কোথাও পাঠানো হয় না।
+ * সকল বিভাগের জন্য উন্মুক্ত — কোনো বিভাগ/বর্ষ/শিক্ষক/কোর্স হার্ডকোড করা নেই।
  */
 (function (root, document) {
   'use strict';
 
   var DATA = root.ISLAMIA_COLLEGE || {};
   var INSTITUTION = DATA.institution || {};
-  var COURSES = DATA.courses || [];
-  var TEACHERS = DATA.teachers || [];
 
   var BN_DIGITS = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
   var BN_MONTHS = [
@@ -19,7 +18,7 @@
   ];
 
   var DOTS_LONG = '………………………………';
-  var DOTS_MID = '…………………';
+  var DOTS_MID = '…………………………';
   var DOTS_SHORT = '……………';
 
   var els = {};
@@ -50,39 +49,14 @@
     return toBengaliDigits(day) + ' ' + BN_MONTHS[month - 1] + ', ' + toBengaliDigits(year);
   }
 
-  function addOption(select, value, label) {
-    var option = document.createElement('option');
-    option.value = value;
-    option.textContent = label;
-    select.appendChild(option);
-  }
-
-  function findCourseById(id) {
-    for (var i = 0; i < COURSES.length; i++) {
-      if (COURSES[i].id === id) return COURSES[i];
-    }
-    return null;
-  }
-
-  function findCourseByCode(code) {
-    for (var i = 0; i < COURSES.length; i++) {
-      if (COURSES[i].code === code) return COURSES[i];
-    }
-    return null;
-  }
-
-  function findTeacher(id) {
-    for (var i = 0; i < TEACHERS.length; i++) {
-      if (TEACHERS[i].id === id) return TEACHERS[i];
-    }
-    return null;
-  }
-
   function setText(el, text, fallbackDots) {
     if (!el) return;
     var value = trim(text);
-    el.textContent = value;
-    if (!value && fallbackDots) {
+    // Clear existing content
+    el.textContent = '';
+    if (value) {
+      el.appendChild(document.createTextNode(value));
+    } else if (fallbackDots) {
       var span = document.createElement('span');
       span.className = 'placeholder';
       span.textContent = fallbackDots;
@@ -96,102 +70,70 @@
     el.classList.toggle('is-warn', Boolean(isWarning));
   }
 
-  /* ---------------- ড্রপডাউন পূরণ ---------------- */
-
-  function buildSelects() {
-    var i;
-
-
-    if (els.courseName) {
-      for (i = 0; i < COURSES.length; i++) {
-        addOption(els.courseName, COURSES[i].id, COURSES[i].name);
-      }
-      if (COURSES.length) els.courseName.value = COURSES[0].id;
-    }
-
-    if (els.courseCode) {
-      for (i = 0; i < COURSES.length; i++) {
-        addOption(els.courseCode, COURSES[i].code, toBengaliDigits(COURSES[i].code));
-      }
-      if (COURSES.length) els.courseCode.value = COURSES[0].code;
-    }
-
-    if (els.teacher) {
-      for (i = 0; i < TEACHERS.length; i++) {
-        addOption(
-          els.teacher,
-          TEACHERS[i].id,
-          TEACHERS[i].name + (TEACHERS[i].designation ? ' (' + TEACHERS[i].designation + ')' : '')
-        );
-      }
-      if (TEACHERS.length) els.teacher.value = TEACHERS[0].id;
-    }
-  }
-
-  /** নাম → কোড এবং কোড → নাম — দুই দিকের সম্পর্ক বজায় রাখে। */
-  function syncFromCourseName() {
-    var course = findCourseById(els.courseName.value);
-    if (course && els.courseCode.value !== course.code) els.courseCode.value = course.code;
-  }
-
-  function syncFromCourseCode() {
-    var course = findCourseByCode(els.courseCode.value);
-    if (course && els.courseName.value !== course.id) els.courseName.value = course.id;
-  }
-
   /* ---------------- লাইভ প্রিভিউ ---------------- */
 
   function render() {
+    var department = trim(els.department.value);
+    var year = trim(els.year.value);
+    var session = toBengaliDigits(trim(els.session.value));
     var subject = trim(els.subject.value);
-    var course = findCourseById(els.courseName.value) || findCourseByCode(els.courseCode.value);
-    var teacher = findTeacher(els.teacher.value);
+    var courseName = trim(els.courseName.value);
+    var courseCode = toBengaliDigits(trim(els.courseCode.value));
+    var teacherName = trim(els.teacherName.value);
+    var teacherDesignation = trim(els.teacherDesignation.value);
     var studentName = trim(els.studentName.value);
     var roll = toBengaliDigits(trim(els.studentRoll.value));
+    var reg = toBengaliDigits(trim(els.studentReg.value));
     var date = bengaliDate(els.submitDate.value);
 
+    /* কলেজ ব্র্যান্ডিং (স্থির) */
     setText(els.outCollege, INSTITUTION.name, '');
     setText(els.outLocation, INSTITUTION.location, '');
-    setText(els.outDepartment, INSTITUTION.department, '');
-    setText(els.outYear, INSTITUTION.year, '');
-    setText(els.outSession, INSTITUTION.session, '');
 
+    /* হেডার মেটা — বিভাগ, বর্ষ, শিক্ষাবর্ষ (ব্যবহারকারীর ইনপুট) */
+    setText(els.outDepartment, department, '……………………');
+    setText(els.outYear, year, '………………');
+    setText(els.outSession, session, '……………');
+
+    /* কোর্স ও বিষয় */
     setText(els.outSubject, subject, DOTS_LONG);
-    setText(els.outCourse, course ? course.name : '', DOTS_LONG);
-    setText(els.outCode, course ? toBengaliDigits(course.code) : '', DOTS_SHORT);
+    setText(els.outCourse, courseName, '…………………………………………');
+    setText(els.outCode, courseCode, DOTS_SHORT);
 
-    /* নির্দেশনায় — শিক্ষকের নাম তালিকায় যা আছে সেটিই বসে। */
-    setText(els.outTeacher, teacher ? teacher.name : '', DOTS_MID);
+    /* নির্দেশনায় — শিক্ষকের নাম ও পদবী */
+    setText(els.outTeacher, teacherName, DOTS_LONG);
+    setText(els.outTeacherDesignation, teacherDesignation, DOTS_MID);
 
-    /* সম্পাদনায় — শিক্ষার্থীর তথ্য। */
+    /* সম্পাদনায় — শিক্ষার্থীর তথ্য */
     setText(els.outStudent, studentName, DOTS_LONG);
     setText(els.outRoll, roll, DOTS_SHORT);
-    setText(els.outStudentDepartment, INSTITUTION.department, '');
-    setText(els.outStudentYear, INSTITUTION.year, '');
+    setText(els.outReg, reg, DOTS_SHORT);
+    setText(els.outStudentDepartment, department, '……………………');
+    setText(els.outStudentYear, year, '………………');
     setText(els.outDate, date, DOTS_SHORT);
 
     validate({ quiet: !state.touched });
   }
 
-  /* ---------------- যাচাই (সাধারণ নির্দেশনা) ---------------- */
+  /* ---------------- যাচাই ---------------- */
 
   var BN_AND_BASIC = /^[\u0980-\u09FF0-9A-Za-z\s.।,\-'’"()/]+$/;
   var state = { touched: false };
 
   function validate(options) {
     var opts = options || {};
-    var nameValue = trim(els.studentName.value);
-    var rollValue = trim(els.studentRoll.value);
-    var subjectValue = trim(els.subject.value);
     var problems = [];
 
-    /* বিষয়ের নাম বাধ্যতামূলক — না লিখলে প্রিন্ট/পিডিএফ হবে না। */
-    if (!subjectValue) {
+    /* বিষয়ের নাম বাধ্যতামূলক */
+    if (!trim(els.subject.value)) {
       setHint(els.subjectHint, 'অনুগ্রহ করে অ্যাসাইনমেন্টের বিষয় লিখুন।', true);
       problems.push('subject');
     } else {
-      setHint(els.subjectHint, 'বিষয়ের নাম লিখুন — এটি কভার পেজে বসবে।', false);
+      setHint(els.subjectHint, 'অ্যাসাইনমেন্টের বিষয়বস্তুর শিরোনাম লিখুন।', false);
     }
 
+    /* শিক্ষার্থীর নাম বাধ্যতামূলক */
+    var nameValue = trim(els.studentName.value);
     if (!nameValue) {
       setHint(els.nameHint, 'শিক্ষার্থীর পূর্ণ নাম লিখুন — এটি কভার পেজে বসবে।', !opts.quiet);
       problems.push('name');
@@ -204,6 +146,8 @@
       setHint(els.nameHint, 'বাংলা অক্ষর, যুক্তাক্ষর, কার-ফলা ও বাংলা সংখ্যা — সবই ঠিকমতো দেখানো হবে।', false);
     }
 
+    /* রোল নম্বর বাধ্যতামূলক */
+    var rollValue = trim(els.studentRoll.value);
     if (!rollValue) {
       setHint(els.rollHint, 'রোল নম্বর দিন — বাংলা বা ইংরেজি সংখ্যা দুটোই গ্রহণযোগ্য।', !opts.quiet);
       problems.push('roll');
@@ -216,6 +160,7 @@
       setHint(els.rollHint, 'কভার পেজে রোল নম্বর বাংলা সংখ্যায় দেখানো হবে।', false);
     }
 
+    /* জমা দেওয়ার তারিখ বাধ্যতামূলক */
     if (!trim(els.submitDate.value)) {
       setHint(els.dateHint, 'জমা দেওয়ার তারিখ বেছে নিন।', !opts.quiet);
       problems.push('date');
@@ -263,7 +208,6 @@
 
   /* ---------------- প্রিন্ট / পিডিএফ ---------------- */
 
-  /** ফন্ট ও লোগো প্রস্তুত হলে তবেই ছাপা হয় — বাংলা লেখা যেন কেটে না যায়। */
   function waitForAssets() {
     var fontsReady = (document.fonts && document.fonts.ready)
       ? document.fonts.ready
@@ -290,11 +234,11 @@
   }
 
   function suggestedTitle() {
-    var course = findCourseById(els.courseName.value);
     var name = trim(els.studentName.value);
     var pieces = ['অ্যাসাইনমেন্ট'];
     if (name) pieces.push(name);
-    if (course) pieces.push(toBengaliDigits(course.code));
+    var code = trim(els.courseCode.value);
+    if (code) pieces.push(toBengaliDigits(code));
     return pieces.join(' - ');
   }
 
@@ -322,24 +266,48 @@
     var $ = function (id) { return document.getElementById(id); };
 
     els.form = $('assignment-form');
+
+    /* বিভাগ/বর্ষ/শিক্ষাবর্ষ */
+    els.department = $('department');
+    els.year = $('year');
+    els.session = $('session');
+
+    /* কোর্স ও বিষয় */
     els.subject = $('subject');
     els.courseName = $('course-name');
     els.courseCode = $('course-code');
-    els.teacher = $('teacher');
+
+    /* শিক্ষক */
+    els.teacherName = $('teacher-name');
+    els.teacherDesignation = $('teacher-designation');
+
+    /* শিক্ষার্থী */
     els.studentName = $('student-name');
     els.studentRoll = $('student-roll');
+    els.studentReg = $('student-reg');
     els.submitDate = $('submit-date');
 
+    /* হিন্ট এলিমেন্ট */
+    els.departmentHint = $('department-hint');
+    els.yearHint = $('year-hint');
+    els.sessionHint = $('session-hint');
     els.subjectHint = $('subject-hint');
+    els.courseNameHint = $('course-name-hint');
+    els.courseCodeHint = $('course-code-hint');
+    els.teacherNameHint = $('teacher-name-hint');
+    els.teacherDesignationHint = $('teacher-designation-hint');
     els.nameHint = $('name-hint');
     els.rollHint = $('roll-hint');
+    els.regHint = $('reg-hint');
     els.dateHint = $('date-hint');
 
+    /* বাটন ও প্রিভিউ */
     els.printBtn = $('print-btn');
     els.stage = $('preview-stage');
     els.scaler = $('preview-scaler');
     els.cover = $('cover');
 
+    /* আউটপুট এলিমেন্ট */
     els.outCollege = $('out-college');
     els.outLocation = $('out-location');
     els.outDepartment = $('out-department');
@@ -349,39 +317,42 @@
     els.outCourse = $('out-course');
     els.outCode = $('out-code');
     els.outTeacher = $('out-teacher');
+    els.outTeacherDesignation = $('out-teacher-designation');
     els.outStudent = $('out-student');
     els.outRoll = $('out-roll');
+    els.outReg = $('out-reg');
     els.outStudentDepartment = $('out-student-department');
     els.outStudentYear = $('out-student-year');
     els.outDate = $('out-date');
 
-    if (!els.form || !DATA) return;
+    if (!els.form) return;
 
-    buildSelects();
+    /* সকল ইনপুটে ইভেন্ট লিসেনার — লাইভ প্রিভিউ আপডেট */
+    var inputs = [
+      els.department, els.year, els.session,
+      els.subject, els.courseName, els.courseCode,
+      els.teacherName, els.teacherDesignation,
+      els.studentName, els.studentRoll, els.studentReg, els.submitDate
+    ];
 
-    [els.subject, els.courseName, els.courseCode, els.teacher,
-      els.studentName, els.studentRoll, els.submitDate].forEach(function (el) {
-        if (!el) return;
-        el.addEventListener('input', function () {
-          if (el === els.courseName) syncFromCourseName();
-          if (el === els.courseCode) syncFromCourseCode();
-          state.touched = true;
-          render();
-        });
-        el.addEventListener('change', function () {
-          if (el === els.courseName) syncFromCourseName();
-          if (el === els.courseCode) syncFromCourseCode();
-          state.touched = true;
-          render();
-        });
+    inputs.forEach(function (el) {
+      if (!el) return;
+      el.addEventListener('input', function () {
+        state.touched = true;
+        render();
       });
+      el.addEventListener('change', function () {
+        state.touched = true;
+        render();
+      });
+    });
 
     els.form.addEventListener('submit', function (event) {
       event.preventDefault();
       state.touched = true;
       var problems = validate({ quiet: false });
 
-      /* বিষয় লেখা না থাকলে প্রিন্ট ডায়ালগ খুলবে না — ঘরে ফোকাস হবে। */
+      /* বিষয় লেখা না থাকলে প্রিন্ট ডায়ালগ খুলবে না */
       if (problems.indexOf('subject') !== -1) {
         if (els.subject) {
           if (els.subject.scrollIntoView) {

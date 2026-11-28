@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#7d1f2f">
-<meta name="description" content="ইসলামিয়া সরকারি কলেজ, সিরাজগঞ্জ — বাংলা বিভাগের শিক্ষার্থীদের জন্য অ্যাসাইনমেন্টের কভার পেজ তৈরি ও প্রিন্ট করার ওয়েব অ্যাপ।">
+<meta name="description" content="ইসলামিয়া সরকারি কলেজ, সিরাজগঞ্জ — যেকোনো বিভাগের শিক্ষার্থীদের জন্য অ্যাসাইনমেন্টের কভার পেজ তৈরি ও প্রিন্ট করার ওয়েব অ্যাপ।">
 <title>অ্যাসাইনমেন্ট কভার জেনারেটর — ইসলামিয়া সরকারি কলেজ, সিরাজগঞ্জ</title>
 <link rel="icon" href="assets/college-logo.jpg" type="image/jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +20,7 @@
     <img class="site-logo" src="assets/college-logo.jpg" alt="ইসলামিয়া সরকারি কলেজ, সিরাজগঞ্জ লোগো" width="150" height="150">
     <div class="site-heading">
       <h1>ইসলামিয়া কলেজ অ্যাসাইনমেন্ট কভার জেনারেটর</h1>
-      <p>ইসলামিয়া সরকারি কলেজ, সিরাজগঞ্জ &nbsp;•&nbsp; বাংলা বিভাগ</p>
+      <p>ইসলামিয়া সরকারি কলেজ, সিরাজগঞ্জ &nbsp;•&nbsp; সকল বিভাগের জন্য</p>
     </div>
   </div>
 </header>
@@ -31,52 +31,87 @@
   <section class="form-panel" aria-labelledby="form-title">
     <div class="panel-head">
       <h2 id="form-title">তথ্য পূরণ করুন</h2>
-      <p class="panel-note">নিচের ঘরগুলো পূরণ করলেই কভার পেজ সঙ্গে সঙ্গে তৈরি হয়ে যাবে। কলেজের নাম, বিভাগ, বর্ষ ও শিক্ষাবর্ষ স্বয়ংক্রিয়ভাবে বসে।</p>
+      <p class="panel-note">নিচের ঘরগুলো পূরণ করলেই কভার পেজ সঙ্গে সঙ্গে তৈরি হয়ে যাবে। কলেজের নাম ও লোগো ব্যতীত সবকিছু আপনার দেওয়া তথ্য অনুযায়ী বসবে।</p>
     </div>
 
     <form id="assignment-form" autocomplete="off" novalidate>
 
       <div class="field-group">
-        <h3 class="group-title">কোর্সের তথ্য</h3>
+        <h3 class="group-title">শিক্ষার্থীর বিভাগ ও বর্ষ</h3>
 
         <div class="field">
-          <label for="subject">বিষয়ের নাম</label>
+          <label for="department">বিভাগের নাম</label>
+          <input type="text" id="department" name="department" lang="bn" maxlength="80"
+                 placeholder="যেমন: বাংলা বিভাগ, রসায়ন বিভাগ, ইংরেজি বিভাগ" spellcheck="false">
+          <p class="hint" id="department-hint">আপনার বিভাগের নাম লিখুন।</p>
+        </div>
+
+        <div class="field">
+          <label for="year">বর্ষ</label>
+          <input type="text" id="year" name="year" lang="bn" maxlength="40"
+                 placeholder="যেমন: প্রথম বর্ষ, দ্বিতীয় বর্ষ, স্নাতক প্রথম বর্ষ" spellcheck="false">
+          <p class="hint" id="year-hint">বর্ষের নাম লিখুন।</p>
+        </div>
+
+        <div class="field">
+          <label for="session">শিক্ষাবর্ষ</label>
+          <input type="text" id="session" name="session" lang="bn" maxlength="30"
+                 placeholder="যেমন: ২০২৫–২৬" spellcheck="false">
+          <p class="hint" id="session-hint">শিক্ষাবর্ষ লিখুন।</p>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <h3 class="group-title">কোর্স ও বিষয়ের তথ্য</h3>
+
+        <div class="field">
+          <label for="subject">বিষয়ের নাম (অ্যাসাইনমেন্টের শিরোনাম)</label>
           <input type="text" id="subject" name="subject" lang="bn" maxlength="140" spellcheck="false"
                  placeholder="যেমন: রবীন্দ্রনাথ ঠাকুরের উপন্যাসে সমাজচিত্র">
-          <p class="hint" id="subject-hint">বিষয়ের নাম লিখুন — এটি কভার পেজে বসবে।</p>
+          <p class="hint" id="subject-hint">অ্যাসাইনমেন্টের বিষয়বস্তুর শিরোনাম লিখুন।</p>
         </div>
 
         <div class="field">
           <label for="course-name">কোর্সের নাম</label>
-          <select id="course-name" name="course-name"></select>
-          <p class="hint">কোর্সের নাম বেছে নিলে কোর্স কোড নিজে থেকেই বসে যাবে।</p>
+          <input type="text" id="course-name" name="course-name" lang="bn" maxlength="140" spellcheck="false"
+                 placeholder="যেমন: বাংলা কবিতা ১">
+          <p class="hint" id="course-name-hint">কোর্সের পূর্ণ নাম লিখুন।</p>
         </div>
 
         <div class="field">
           <label for="course-code">কোর্স কোড</label>
-          <select id="course-code" name="course-code"></select>
-          <p class="hint">কোর্স কোড বেছে নিলে কোর্সের নামও নিজে থেকেই বসে যাবে।</p>
+          <input type="text" id="course-code" name="course-code" lang="bn" maxlength="24" spellcheck="false"
+                 placeholder="যেমন: ২১১০০৫">
+          <p class="hint" id="course-code-hint">কোর্স কোড লিখুন (বাংলা বা ইংরেজি সংখ্যা)।</p>
         </div>
       </div>
 
       <div class="field-group">
-        <h3 class="group-title">নির্দেশনায়</h3>
+        <h3 class="group-title">নির্দেশনায় (শিক্ষকের তথ্য)</h3>
 
         <div class="field">
-          <label for="teacher">শিক্ষকের নাম</label>
-          <select id="teacher" name="teacher"></select>
-          <p class="hint">নামের পাশে পদবি শুধু চেনার জন্য; কভার পেজে কেবল শিক্ষকের নাম বসবে।</p>
+          <label for="teacher-name">শিক্ষকের নাম</label>
+          <input type="text" id="teacher-name" name="teacher-name" lang="bn" maxlength="80" spellcheck="false"
+                 placeholder="যেমন: তানজুম আরা">
+          <p class="hint" id="teacher-name-hint">যাঁকে অ্যাসাইনমেন্ট জমা দিচ্ছেন তাঁর নাম লিখুন।</p>
+        </div>
+
+        <div class="field">
+          <label for="teacher-designation">শিক্ষকের পদবী</label>
+          <input type="text" id="teacher-designation" name="teacher-designation" lang="bn" maxlength="80" spellcheck="false"
+                 placeholder="যেমন: বিভাগীয় প্রধান, প্রভাষক, আহ্বায়ক, সহকারী অধ্যাপক">
+          <p class="hint" id="teacher-designation-hint">শিক্ষকের পদবী লিখুন।</p>
         </div>
       </div>
 
       <div class="field-group">
-        <h3 class="group-title">শিক্ষার্থীর তথ্য</h3>
+        <h3 class="group-title">সম্পাদনায় (শিক্ষার্থীর তথ্য)</h3>
 
         <div class="field">
           <label for="student-name">শিক্ষার্থীর পূর্ণ নাম</label>
           <input type="text" id="student-name" name="student-name" lang="bn"
                  maxlength="70" placeholder="যেমন: মোঃ আব্দুল করিম" spellcheck="false">
-          <p class="hint" id="name-hint">বাংলা অক্ষর, যুক্তাক্ষর ও কার-ফলা সহজে লেখা যায়।</p>
+          <p class="hint" id="name-hint">বাংলা অক্ষরে পূর্ণ নাম লিখুন।</p>
         </div>
 
         <div class="field">
@@ -85,11 +120,12 @@
                  maxlength="24" placeholder="যেমন: ২৩২৪০১০২০৫" spellcheck="false">
           <p class="hint" id="roll-hint">বাংলা বা ইংরেজি সংখ্যা — দুটোই দিন; কভার পেজে বাংলা সংখ্যায় দেখানো হবে।</p>
         </div>
+
         <div class="field">
-          <label for="student-roll">রেজিস্ট্রেশন নম্বর</label>
-          <input type="text" id="student-roll" name="student-roll" lang="bn" inputmode="numeric"
-                 maxlength="24" placeholder="যেমন: ২৩২৪০১০২০৫" spellcheck="false">
-          <p class="hint" id="roll-hint">বাংলা বা ইংরেজি সংখ্যা — দুটোই দিন; কভার পেজে বাংলা সংখ্যায় দেখানো হবে।</p>
+          <label for="student-reg">রেজিস্ট্রেশন নম্বর</label>
+          <input type="text" id="student-reg" name="student-reg" lang="bn" inputmode="numeric"
+                 maxlength="24" placeholder="যেমন: ১২৩৪৫৬৭৮৯০" spellcheck="false">
+          <p class="hint" id="reg-hint">বাংলা বা ইংরেজি সংখ্যা — দুটোই দিন; কভার পেজে বাংলা সংখ্যায় দেখানো হবে।</p>
         </div>
 
         <div class="field">
@@ -131,11 +167,11 @@
                 <h2 class="cover-college" id="out-college">ইসলামিয়া সরকারি কলেজ</h2>
                 <p class="cover-location" id="out-location">সিরাজগঞ্জ</p>
                 <p class="cover-meta">
-                  <span id="out-department">বাংলা বিভাগ</span>
+                  <span id="out-department"><span class="placeholder">……………………</span></span>
                   <span class="meta-sep" aria-hidden="true">•</span>
-                  <span id="out-year">প্রথম বর্ষ</span>
+                  <span id="out-year"><span class="placeholder">………………</span></span>
                   <span class="meta-sep" aria-hidden="true">•</span>
-                  <span>শিক্ষাবর্ষ: <span id="out-session">২০২৫–২৬</span></span>
+                  <span>শিক্ষাবর্ষ: <span id="out-session"><span class="placeholder">……………</span></span></span>
                 </p>
               </header>
 
@@ -149,18 +185,19 @@
               <div class="cover-course">
                 <p class="course-line">
                   <span class="course-label">কোর্সের নাম:</span>
-                  <span class="course-value" id="out-course">বাংলাদেশ এবং বাঙালির ইতিহাস ও সংস্কৃতি</span>
+                  <span class="course-value" id="out-course"><span class="placeholder">…………………………………………</span></span>
                 </p>
                 <p class="course-line">
                   <span class="course-label">কোর্স কোড:</span>
-                  <span class="course-value" id="out-code">২১১০০১</span>
+                  <span class="course-value" id="out-code"><span class="placeholder">……………</span></span>
                 </p>
               </div>
 
               <div class="cover-footer">
                 <section class="cover-block cover-block-guide">
                   <h4 class="block-title">নির্দেশনায়</h4>
-                  <p class="block-name" id="out-teacher">তানজুম আরা ম্যাডাম</p>
+                  <p class="block-name" id="out-teacher"><span class="placeholder">………………………………</span></p>
+                  <p class="block-sub" id="out-teacher-designation"><span class="placeholder">…………………………</span></p>
                 </section>
 
                 <section class="cover-block cover-block-student">
@@ -168,9 +205,10 @@
                   <p class="block-name" id="out-student"><span class="placeholder">………………………………</span></p>
                   <ul class="student-lines">
                     <li><span class="line-label">রোল:</span> <span id="out-roll"><span class="placeholder">……………</span></span></li>
-                    <li><span class="line-label">বিভাগ:</span> <span id="out-student-department">বাংলা বিভাগ</span></li>
-                    <li><span class="line-label">বর্ষ:</span> <span id="out-student-year">প্রথম বর্ষ</span></li>
-                    <li><span class="line-label">জমা দেওয়ার তারিখ:</span> <span id="out-date"><span class="placeholder">……………</span></span></li>
+                    <li><span class="line-label">রেজিস্ট্রেশন:</span> <span id="out-reg"><span class="placeholder">……………</span></span></li>
+                    <li><span class="line-label">বিভাগ:</span> <span id="out-student-department"><span class="placeholder">……………………</span></span></li>
+                    <li><span class="line-label">বর্ষ:</span> <span id="out-student-year"><span class="placeholder">………………</span></span></li>
+                    <li><span class="line-label">জমা দেওয়ার তারিখ:</span> <span id="out-date"><span class="placeholder">……………</span></span></li>
                   </ul>
                 </section>
               </div>
@@ -186,11 +224,10 @@
 </main>
 
 <footer class="site-footer">
-  <p>শিক্ষার্থীদের সুবিধার জন্য তৈরি &nbsp;•&nbsp; ইসলামিয়া সরকারি কলেজ, সিরাজগঞ্জ &nbsp;•&nbsp; বাংলা বিভাগ</p>
+  <p>শিক্ষার্থীদের সুবিধার জন্য তৈরি &nbsp;•&nbsp; ইসলামিয়া সরকারি কলেজ, সিরাজগঞ্জ</p>
 </footer>
 
 <script src="js/courses.js"></script>
-<script src="js/teachers.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
