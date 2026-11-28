@@ -68,9 +68,9 @@
     },
     {
       id: 'c8',
-      code: '219904',
-      name: 'তথ্য ও যোগাযোগ প্রযুক্তি (ব্যবহারিক/ল্যাব)',
-      en: 'Information and Communication Technology (Practical/Lab)'
+      code: '216601',
+      name: 'তথ্য ও যোগাযোগ প্রযুক্তি',
+      en: 'Information and Communication Technology'
     }
   ];
 
